@@ -12,5 +12,7 @@
     <string name="name2">Name2</string>
     <string name="zero">0</string>
     <string name="name1">Name1</string>
+    <string name="nickname">Enter your Name</string>
     <string name="restart">RESTART</string>
+    <string name="reset_score">Reset Score</string>
 </resources>

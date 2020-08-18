@@ -1,6 +1,7 @@
 package com.android.example.ticapp
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

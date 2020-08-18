@@ -1,14 +1,19 @@
 package com.android.example.ticapp
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.playground.*
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -26,14 +31,32 @@ class FirstFragment : Fragment() {
     var player2inputs: MutableList<Int> = mutableListOf()
     var name1: EditText? = null
     var name2: EditText? = null
-    private val winlists: List<List<Int>> = listOf(listOf(R.id.imageButton1, R.id.imageButton2, R.id.imageButton3), listOf(R.id.imageButton4, R.id.imageButton5, R.id.imageButton6), listOf(R.id.imageButton7, R.id.imageButton8, R.id.imageButton9), listOf(R.id.imageButton1, R.id.imageButton4, R.id.imageButton7), listOf(R.id.imageButton2, R.id.imageButton5, R.id.imageButton8), listOf(R.id.imageButton3, R.id.imageButton6, R.id.imageButton9), listOf(R.id.imageButton1, R.id.imageButton5, R.id.imageButton9), listOf(R.id.imageButton3, R.id.imageButton5, R.id.imageButton7))
+    private val winlists: List<List<Int>> = listOf(
+        listOf(
+            R.id.imageButton1,
+            R.id.imageButton2,
+            R.id.imageButton3
+        ), listOf(R.id.imageButton4, R.id.imageButton5, R.id.imageButton6), listOf(
+            R.id.imageButton7,
+            R.id.imageButton8,
+            R.id.imageButton9
+        ), listOf(R.id.imageButton1, R.id.imageButton4, R.id.imageButton7), listOf(
+            R.id.imageButton2,
+            R.id.imageButton5,
+            R.id.imageButton8
+        ), listOf(R.id.imageButton3, R.id.imageButton6, R.id.imageButton9), listOf(
+            R.id.imageButton1,
+            R.id.imageButton5,
+            R.id.imageButton9
+        ), listOf(R.id.imageButton3, R.id.imageButton5, R.id.imageButton7)
+    )
     private var currentplayer: Player = player1
     private var scor1: TextView? = null
     private var scor2: TextView? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         // Inflate the layout for this fragment
@@ -47,9 +70,22 @@ class FirstFragment : Fragment() {
         scor2 = view.findViewById(R.id.score_player2)
         name1 = view.findViewById<EditText>(R.id.name_player1)
         name2 = view.findViewById<EditText>(R.id.name_player2)
+
         val a = getView()
+        val displaym = context?.resources?.displayMetrics!!
+        name1?.layoutParams?.width = (displaym.widthPixels / 9) * 3
+        name2?.layoutParams?.width = (displaym.widthPixels / 9) * 3
+        //scor1?.layoutParams?.width = (displaym.widthPixels / 9)
+        //scor2?.layoutParams?.width = (displaym.widthPixels / 9)
+
+        val inputManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        inputManager.hideSoftInputFromWindow(
+            view.windowToken, 0)
+
         if (a != null) {
-            setListeners(a)
+            setListeners(a, displaym)
             restart(a)
         }else{
             println("FEEEEEEEEEEEHLER")
@@ -63,8 +99,10 @@ class FirstFragment : Fragment() {
         reset.setOnClickListener{newGame(view)}
     }
 
-    private fun setListeners(view: View) {
+    private fun setListeners(view: View, met: DisplayMetrics) {
 
+        //var a = widthh
+        //var b = heightt
         val button1 = view.findViewById<ImageButton>(R.id.imageButton1)
         val button2 = view.findViewById<ImageButton>(R.id.imageButton2)
         val button3 = view.findViewById<ImageButton>(R.id.imageButton3)
@@ -74,8 +112,23 @@ class FirstFragment : Fragment() {
         val button7 = view.findViewById<ImageButton>(R.id.imageButton7)
         val button8 = view.findViewById<ImageButton>(R.id.imageButton8)
         val button9 = view.findViewById<ImageButton>(R.id.imageButton9)
-        val clickableViews: List<View> = listOf(button1, button2, button3, button4, button5, button6, button7, button8, button9)
+        val clickableViews: List<View> = listOf(
+            button1,
+            button2,
+            button3,
+            button4,
+            button5,
+            button6,
+            button7,
+            button8,
+            button9
+        )
+
         for (item in clickableViews) {
+            item.layoutParams.height = met.widthPixels / 5
+            item.layoutParams.width = met.widthPixels / 5
+            println("HEEEEELLO" + item.layoutParams.height)
+            println("HULULU" + item.layoutParams.width)
             item.setOnClickListener { fillWithSymbol(it) }
         }
 
@@ -89,9 +142,9 @@ class FirstFragment : Fragment() {
 
         when(view.id) {
             R.id.imageButton1 -> {
-                if(player1inputs.contains(R.id.imageButton1) || player2inputs.contains(R.id.imageButton1)){
+                if (player1inputs.contains(R.id.imageButton1) || player2inputs.contains(R.id.imageButton1)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton1, R.id.imageButton1)
 
@@ -102,9 +155,9 @@ class FirstFragment : Fragment() {
                 checkWin(view)
             }
             R.id.imageButton2 -> {
-                if(player1inputs.contains(R.id.imageButton2) || player2inputs.contains(R.id.imageButton2)){
+                if (player1inputs.contains(R.id.imageButton2) || player2inputs.contains(R.id.imageButton2)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton2, R.id.imageButton2)
                     } else {
@@ -114,9 +167,9 @@ class FirstFragment : Fragment() {
                 checkWin(view)
             }
             R.id.imageButton3 -> {
-                if(player1inputs.contains(R.id.imageButton3) || player2inputs.contains(R.id.imageButton3)){
+                if (player1inputs.contains(R.id.imageButton3) || player2inputs.contains(R.id.imageButton3)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton3, R.id.imageButton3)
                     } else {
@@ -126,9 +179,9 @@ class FirstFragment : Fragment() {
                 checkWin(view)
             }
             R.id.imageButton4 -> {
-                if(player1inputs.contains(R.id.imageButton4) || player2inputs.contains(R.id.imageButton4)){
+                if (player1inputs.contains(R.id.imageButton4) || player2inputs.contains(R.id.imageButton4)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton4, R.id.imageButton4)
                     } else {
@@ -138,9 +191,9 @@ class FirstFragment : Fragment() {
                 checkWin(view)
             }
             R.id.imageButton5 -> {
-                if(player1inputs.contains(R.id.imageButton5) || player2inputs.contains(R.id.imageButton5)){
+                if (player1inputs.contains(R.id.imageButton5) || player2inputs.contains(R.id.imageButton5)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton5, R.id.imageButton5)
                     } else {
@@ -150,9 +203,9 @@ class FirstFragment : Fragment() {
                 checkWin(view)
             }
             R.id.imageButton6 -> {
-                if(player1inputs.contains(R.id.imageButton6) || player2inputs.contains(R.id.imageButton6)){
+                if (player1inputs.contains(R.id.imageButton6) || player2inputs.contains(R.id.imageButton6)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton6, R.id.imageButton6)
                     } else {
@@ -162,9 +215,9 @@ class FirstFragment : Fragment() {
                 checkWin(view)
             }
             R.id.imageButton7 -> {
-                if(player1inputs.contains(R.id.imageButton7) || player2inputs.contains(R.id.imageButton7)){
+                if (player1inputs.contains(R.id.imageButton7) || player2inputs.contains(R.id.imageButton7)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton7, R.id.imageButton7)
                     } else {
@@ -174,9 +227,9 @@ class FirstFragment : Fragment() {
                 checkWin(view)
             }
             R.id.imageButton8 -> {
-                if(player1inputs.contains(R.id.imageButton8) || player2inputs.contains(R.id.imageButton8)){
+                if (player1inputs.contains(R.id.imageButton8) || player2inputs.contains(R.id.imageButton8)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton8, R.id.imageButton8)
                     } else {
@@ -186,9 +239,9 @@ class FirstFragment : Fragment() {
                 checkWin(view)
             }
             R.id.imageButton9 -> {
-                if(player1inputs.contains(R.id.imageButton9) || player2inputs.contains(R.id.imageButton9)){
+                if (player1inputs.contains(R.id.imageButton9) || player2inputs.contains(R.id.imageButton9)) {
                     nvitoast.show()
-                }else {
+                } else {
                     if (currentplayer.symbol == player1.symbol) {
                         player1turn(imageButton9, R.id.imageButton9)
                     } else {

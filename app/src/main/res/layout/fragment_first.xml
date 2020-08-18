@@ -11,37 +11,35 @@
         android:id="@+id/name_player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:autofillHints="Enter Your Name"
-        android:ems="5"
+        android:layout_marginBottom="32dp"
+        android:ems="7"
         android:inputType="textPersonName"
-        android:text="@string/name1"
-        android:textSize="24sp"
+        android:hint="@string/nickname"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/playground"
         app:layout_constraintEnd_toStartOf="@+id/score_player1"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="55dp"
-        tools:ignore="LabelFor" />
+        android:imeOptions="actionDone"
+        tools:ignore="LabelFor"
+        android:autofillHints="Enter your Name" />
 
     <EditText
         android:id="@+id/name_player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:autofillHints="Enter Your Name"
-        android:ems="5"
+        android:layout_marginBottom="32dp"
+        android:ems="7"
         android:inputType="textPersonName"
-        android:text="@string/name2"
-        android:textSize="24sp"
+        android:hint="@string/nickname"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/playground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/score_player2"
-        tools:layout_editor_absoluteY="55dp"
-        tools:ignore="LabelFor" />
+        android:imeOptions="actionDone"
+        tools:ignore="LabelFor"
+        android:autofillHints="Enter your Name" />
 
     <TextView
         android:id="@+id/score_player1"
@@ -54,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/name_player1"
         app:layout_constraintBottom_toTopOf="@id/playground"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="32dp"
         tools:layout_editor_absoluteY="55dp" />
 
     <TextView
@@ -68,7 +66,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/score_player1"
         app:layout_constraintBottom_toTopOf="@id/playground"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="32dp"
         tools:layout_editor_absoluteY="55dp" />
 
     <include
