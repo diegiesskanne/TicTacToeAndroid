@@ -12,72 +12,72 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:autofillHints="Enter your Name"
         android:ems="7"
-        android:inputType="textPersonName"
         android:hint="@string/nickname"
+        android:imeOptions="actionDone"
+        android:inputType="textPersonName"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/playground"
         app:layout_constraintEnd_toStartOf="@+id/score_player1"
         app:layout_constraintStart_toStartOf="parent"
-        android:imeOptions="actionDone"
-        tools:ignore="LabelFor"
-        android:autofillHints="Enter your Name" />
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/name_player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:autofillHints="Enter your Name"
         android:ems="7"
-        android:inputType="textPersonName"
         android:hint="@string/nickname"
+        android:imeOptions="actionDone"
+        android:inputType="textPersonName"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/playground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/score_player2"
-        android:imeOptions="actionDone"
-        tools:ignore="LabelFor"
-        android:autofillHints="Enter your Name" />
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/score_player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="@string/zero"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/playground"
         app:layout_constraintEnd_toStartOf="@+id/score_player2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/name_player1"
-        app:layout_constraintBottom_toTopOf="@id/playground"
-        android:layout_marginBottom="32dp"
         tools:layout_editor_absoluteY="55dp" />
 
     <TextView
         android:id="@+id/score_player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="@string/zero"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/playground"
         app:layout_constraintEnd_toStartOf="@+id/name_player2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/score_player1"
-        app:layout_constraintBottom_toTopOf="@id/playground"
-        android:layout_marginBottom="32dp"
         tools:layout_editor_absoluteY="55dp" />
 
     <include
-        layout="@layout/playground"
         android:id="@+id/playground"
-        android:layout_height="wrap_content"
+        layout="@layout/playground"
         android:layout_width="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/restart_button"
@@ -88,6 +88,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playground" />
+
+    <Button
+        android:id="@+id/about_but"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_player2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

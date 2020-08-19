@@ -1,17 +1,26 @@
 package com.android.example.ticapp
 
+import android.app.Notification
+import android.content.ClipData
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.marginBottom
+import androidx.core.view.marginEnd
+import androidx.core.view.marginStart
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.playground.*
 
 
@@ -53,6 +62,7 @@ class FirstFragment : Fragment() {
     private var currentplayer: Player = player1
     private var scor1: TextView? = null
     private var scor2: TextView? = null
+    private var about: Button? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,13 +80,24 @@ class FirstFragment : Fragment() {
         scor2 = view.findViewById(R.id.score_player2)
         name1 = view.findViewById<EditText>(R.id.name_player1)
         name2 = view.findViewById<EditText>(R.id.name_player2)
+        about = view.findViewById<Button>(R.id.about_but)
 
-        val a = getView()
         val displaym = context?.resources?.displayMetrics!!
+        //Fragment.findNavController()
+        val lo = about?.layoutParams as ConstraintLayout.LayoutParams
+        val top = displaym.heightPixels / 2
+        lo.setMargins(0, top, 5,0)
+        about?.layoutParams = lo
+
+        //println("GURGURGUR " + about?.marginTop + " " + about?.marginBottom + " " + about?.marginEnd + " " + about?.marginStart)
+        about?.setOnClickListener{
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, null)
+        }
+        val a = getView()
+
+
         name1?.layoutParams?.width = (displaym.widthPixels / 9) * 3
         name2?.layoutParams?.width = (displaym.widthPixels / 9) * 3
-        //scor1?.layoutParams?.width = (displaym.widthPixels / 9)
-        //scor2?.layoutParams?.width = (displaym.widthPixels / 9)
 
         val inputManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -91,6 +112,14 @@ class FirstFragment : Fragment() {
             println("FEEEEEEEEEEEHLER")
         }
         //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
+    }
+
+    private fun reset(){
+        scorep1 = 0
+        scorep2 = 0
+        scor1?.text = scorep1.toString()
+        scor2?.text = scorep2.toString()
 
     }
 
@@ -127,8 +156,6 @@ class FirstFragment : Fragment() {
         for (item in clickableViews) {
             item.layoutParams.height = met.widthPixels / 5
             item.layoutParams.width = met.widthPixels / 5
-            println("HEEEEELLO" + item.layoutParams.height)
-            println("HULULU" + item.layoutParams.width)
             item.setOnClickListener { fillWithSymbol(it) }
         }
 
