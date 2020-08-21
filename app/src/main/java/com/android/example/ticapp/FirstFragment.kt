@@ -16,6 +16,8 @@ import androidx.core.view.marginEnd
 import androidx.core.view.marginStart
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -40,6 +42,17 @@ class FirstFragment : Fragment() {
     var player2inputs: MutableList<Int> = mutableListOf()
     var name1: EditText? = null
     var name2: EditText? = null
+
+//    val button1 = null
+//    val button2 = null
+//    val button3 = null
+//    val button4 = null
+//    val button5 = null
+//    val button6 = null
+//    val button7 = null
+//    val button8 = null
+//    val button9 = null
+
     private val winlists: List<List<Int>> = listOf(
         listOf(
             R.id.imageButton1,
@@ -64,6 +77,8 @@ class FirstFragment : Fragment() {
     private var scor2: TextView? = null
     private var about: Button? = null
 
+    //private val model: SharedViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,6 +91,9 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //model.selected.observe(viewLifecycleOwner, Observer<ClipData.Item>{
+          //  item -> reset()
+        //})
         scor1 = view.findViewById(R.id.score_player1)
         scor2 = view.findViewById(R.id.score_player2)
         name1 = view.findViewById<EditText>(R.id.name_player1)
@@ -99,6 +117,7 @@ class FirstFragment : Fragment() {
         name1?.layoutParams?.width = (displaym.widthPixels / 9) * 3
         name2?.layoutParams?.width = (displaym.widthPixels / 9) * 3
 
+
         val inputManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
@@ -115,7 +134,7 @@ class FirstFragment : Fragment() {
 
     }
 
-    private fun reset(){
+    public fun reset(){
         scorep1 = 0
         scorep2 = 0
         scor1?.text = scorep1.toString()
@@ -130,8 +149,6 @@ class FirstFragment : Fragment() {
 
     private fun setListeners(view: View, met: DisplayMetrics) {
 
-        //var a = widthh
-        //var b = heightt
         val button1 = view.findViewById<ImageButton>(R.id.imageButton1)
         val button2 = view.findViewById<ImageButton>(R.id.imageButton2)
         val button3 = view.findViewById<ImageButton>(R.id.imageButton3)
@@ -154,8 +171,13 @@ class FirstFragment : Fragment() {
         )
 
         for (item in clickableViews) {
-            item.layoutParams.height = met.widthPixels / 5
-            item.layoutParams.width = met.widthPixels / 5
+            if(met.heightPixels > met.widthPixels){
+                item.layoutParams.height = met.widthPixels / 5
+                item.layoutParams.width = met.widthPixels / 5
+            }else{
+                item.layoutParams.height = met.heightPixels / 5
+                item.layoutParams.width = met.heightPixels / 5
+            }
             item.setOnClickListener { fillWithSymbol(it) }
         }
 
